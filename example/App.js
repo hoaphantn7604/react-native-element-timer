@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {StyleSheet, View, Button, Text, SafeAreaView} from 'react-native';
+import {StyleSheet, Button, Text, SafeAreaView} from 'react-native';
 import {Timer, Countdown} from 'react-native-timer-countdown';
 
 const TimerScreen = _props => {
