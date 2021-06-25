@@ -10,8 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-timer-countdown.git",
-    "baseUrl": "https://github.com/github_account/react-native-timer-countdown"
+    "url": "git+https://github.com/hoaphantn7604/react-native-timer-countdown.git",
+    "baseUrl": "https://github.com/hoaphantn7604/react-native-timer-countdown"
   },
   "keywords": [
     "react-native",

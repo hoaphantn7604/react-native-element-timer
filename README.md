@@ -14,7 +14,7 @@ or
 ![](https://github.com/hoaphantn7604/file-upload/blob/master/document/component/countdown.png)
 
 #### Timer Props
-| Props              | Params               | isRequire | default          |
+| Props              | Params               | isRequire | Description      |
 | ------------------ | -------------------- | --------- | ---------------- |
 | start              | ref.start()          | Yes       |                  |
 | pause              | ref.pause()          | Yes       |                  |
