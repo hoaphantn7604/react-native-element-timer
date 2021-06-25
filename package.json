@@ -1,7 +1,7 @@
 {
-  "name": "react-native-timer-countdown",
+  "name": "react-native-element-timer",
   "title": "React Native Timer Countdown",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "React Native Timer Countdown",
   "main": "index.ts",
   "scripts": {
@@ -9,11 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hoaphantn7604/react-native-timer-countdown.git",
-    "baseUrl": "https://github.com/hoaphantn7604/react-native-timer-countdown"
+    "url": "git+https://github.com/hoaphantn7604/react-native-element-timer.git",
+    "baseUrl": "https://github.com/hoaphantn7604/react-native-element-timer"
   },
   "keywords": [
     "react-native",
+    "elements",
+    "components",
     "timer",
     "countdown"
   ],

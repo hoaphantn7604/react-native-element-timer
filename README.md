@@ -1,12 +1,12 @@
-# react-native-timer-countdown
+# react-native-element-timer
 
 ## Getting started
 ```js
-    npm install react-native-timer-countdown --save
+    npm install react-native-element-timer --save
 ```
 or
 ```js
-    yarn add react-native-timer-countdown
+    yarn add react-native-element-timer
 ```
 
 #### Demo
@@ -45,7 +45,7 @@ or
 ```javascript
     import React, {useRef} from 'react';
     import {StyleSheet, Button, Text, SafeAreaView} from 'react-native';
-    import {Timer, Countdown} from 'react-native-timer-countdown';
+    import {Timer, Countdown} from 'react-native-element-timer';
 
     const TimerScreen = _props => {
         const timerRef = useRef(null);
