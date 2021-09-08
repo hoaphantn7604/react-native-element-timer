@@ -50,7 +50,7 @@ const TimerScreen = _props => {
         ref={countdownRef}
         style={styles.timer}
         textStyle={styles.timerText}
-        seconds={5}
+        seconds={9}
         onTimes={e => {}}
         onEnd={() => {}}
       />

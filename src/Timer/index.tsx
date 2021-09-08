@@ -105,10 +105,24 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
     }
   }
 
+  const renderTimer = () => {
+    if (hours > 0) {
+      return <Text style={[styles.text, textStyle, font()]}>{`${hours}:${minute.toString().length === 1 ? '0' : ''}${minute}:${seconds.toString().length === 1 ? '0' : ''
+        }${seconds}`}</Text>
+    } else {
+      if (minute > 0) {
+        return <Text style={[styles.text, textStyle, font()]}>{`${minute}:${seconds.toString().length === 1 ? '0' : ''
+          }${seconds}`}</Text>
+      } else {
+        return <Text style={[styles.text, textStyle, font()]}>{`${seconds}`}</Text>
+      }
+    }
+
+  }
+
   return (
     <View style={style} key={key}>
-      <Text style={[styles.text, textStyle, font()]}>{`${hours}:${minute.toString().length === 1 ? '0' : ''}${minute}:${seconds.toString().length === 1 ? '0' : ''
-        }${seconds}`}</Text>
+      {renderTimer()}
     </View>
   );
 });
