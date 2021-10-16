@@ -1,9 +1,11 @@
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export interface Props {
+  initialSeconds?: number;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   fontFamily?: string;
-  onTimes?: (seconds: number) => void
-  onEnd?: (seconds: number) => void
+  onTimes?: (seconds: number) => void;
+  onPause?: (seconds: number) => void;
+  onEnd?: (seconds: number) => void;
 }

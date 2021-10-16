@@ -1,5 +1,5 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { styles } from './styles';
 import { Props } from './type';
 
@@ -17,7 +17,7 @@ let seconds = 0;
 let currentSeconds = 0;
 
 const TimerComponent = React.forwardRef((props: Props, ref) => {
-  const { style, textStyle, fontFamily, onEnd, onTimes } = props;
+  const { initialSeconds = 0, style, textStyle, fontFamily, onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 
   useImperativeHandle(ref, () => {
@@ -25,10 +25,14 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
   });
 
   useEffect(() => {
+    if(initialSeconds > 0){
+      initTime(initialSeconds);
+    }
+    setKey(Math.random());
     return () => {
       stop();
     }
-  }, [])
+  }, [initialSeconds])
 
   const timer = () => {
     interval = setInterval(() => {
@@ -51,11 +55,31 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
 
   };
 
+  const initTime = (iSeconds: number) => {
+    if (iSeconds >= 3600) {
+      hours = parseInt(iSeconds / 3600);
+      const times = iSeconds % 3600;
+      initTime(times);
+    } else {
+      if (iSeconds >= 60) {
+        minute = parseInt(iSeconds / 60);
+        const times = iSeconds % 60;
+        initTime(times);
+      } else {
+        seconds = iSeconds;
+      }
+    }
+  };
+
   const init = () => {
-    currentSeconds = 0;
-    hours = 0;
-    minute = 0;
-    seconds = 0;
+    if(initialSeconds > 0){
+      initTime(initialSeconds);
+    }else{
+      currentSeconds = 0;
+      hours = 0;
+      minute = 0;
+      seconds = 0;
+    }
     clear();
     setKey(Math.random());
   }
@@ -70,6 +94,9 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
 
   const pause = () => {
     clear();
+    if (onPause) {
+      onPause(currentSeconds);
+    }
   }
 
   const resume = () => {

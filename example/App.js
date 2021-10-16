@@ -14,6 +14,7 @@ const TimerScreen = _props => {
         style={styles.timer}
         textStyle={styles.timerText}
         onTimes={e => {}}
+        onPause={e => {}}
         onEnd={e => {}}
       />
       <Button
@@ -52,7 +53,8 @@ const TimerScreen = _props => {
         textStyle={styles.timerText}
         seconds={9}
         onTimes={e => {}}
-        onEnd={() => {}}
+        onPause={e => {}}
+        onEnd={(e) => {}}
       />
       <Button
         style={styles.button}

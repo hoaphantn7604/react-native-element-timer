@@ -10,36 +10,39 @@ or
 ```
 
 #### Demo
-![](https://github.com/hoaphantn7604/file-upload/blob/master/document/component/timer.png)
-![](https://github.com/hoaphantn7604/file-upload/blob/master/document/component/countdown.png)
+![](https://github.com/hoaphantn7604/file-upload/blob/master/document/timer/timer.gif)
+![](https://github.com/hoaphantn7604/file-upload/blob/master/document/timer/countdown.gif)
 
 #### Timer Props
-| Props              | Params               | isRequire | Description      |
-| ------------------ | -------------------- | --------- | ---------------- |
-| start              | ref.start()          | Yes       |                  |
-| pause              | ref.pause()          | Yes       |                  |
-| resume             | ref.resume()         | Yes       |                  |
-| stop               | ref.stop()           | Yes       |                  |
-| style              | ViewStyle            | No        |                  |
-| fontFamily         | String               | No        |                  |
-| textStyle          | TextStyle            | No        |                  |
-| onTimes            | (seconds) => void    | No        |                  |
-| onEnd              | (seconds) => void    | No        |                  |
+| Props              | Type                 | isRequire | Description                             |
+| ------------------ | -------------------- | --------- | --------------------------------------- |
+| initialSeconds     | Number               | No        | Initial seconds, defalut is 0           |
+| start              | ref.start()          | Yes       | Start timer                             |
+| pause              | ref.pause()          | Yes       | Pause timer                             |
+| resume             | ref.resume()         | Yes       | Resume timer                            |
+| stop               | ref.stop()           | Yes       | Stop timer                              |
+| style              | ViewStyle            | No        | Styling container view                  |
+| fontFamily         | String               | No        | Customize font style                    |
+| textStyle          | TextStyle            | No        | Styling text                            |
+| onTimes            | (seconds) => void    | No        | callback when running time              |
+| onPause            | (seconds) => void    | No        | Callback when the pause event is called |
+| onEnd              | (seconds) => void    | No        | Callback when the stop event is called  |
 
 
 #### Countdown Props
-| Props              | Params               | isRequire | default          |
-| ------------------ | -------------------- | --------- | ---------------- |
-| start              | ref.start()          | Yes       |                  |
-| pause              | ref.pause()          | Yes       |                  |
-| resume             | ref.resume()         | Yes       |                  |
-| stop               | ref.stop()           | Yes       |                  |
-| seconds            | Number               | Yes       |                  |
-| style              | ViewStyle            | No        |                  |
-| fontFamily         | String               | No        |                  |
-| textStyle          | TextStyle            | No        |                  |
-| onTimes            | (seconds) => void    | No        |                  |
-| onEnd              | (seconds) => void    | No        |                  |
+| Props              | Type                 | isRequire | default                                 |
+| ------------------ | -------------------- | --------- | --------------------------------------- |
+| seconds            | Number               | Yes       | Initial seconds                         |
+| start              | ref.start()          | Yes       | Start timer                             |
+| pause              | ref.pause()          | Yes       | Pause timer                             |
+| resume             | ref.resume()         | Yes       | Resume timer                            |
+| stop               | ref.stop()           | Yes       | Stop timer                              |
+| style              | ViewStyle            | No        | Styling container view                  |
+| fontFamily         | String               | No        | Customize font style                    |
+| textStyle          | TextStyle            | No        | Styling text                            |
+| onTimes            | (seconds) => void    | No        | callback when running time              |
+| onPause            | (seconds) => void    | No        | Callback when the pause event is called |
+| onEnd              | (seconds) => void    | No        | Callback when the stop event is called  |
 
 ## Usage
 ```javascript
@@ -59,6 +62,7 @@ or
                     style={styles.timer}
                     textStyle={styles.timerText}
                     onTimes={e => {}}
+                    onPause={e => {}}
                     onEnd={e => {}}
                 />
                 <Button
@@ -97,7 +101,8 @@ or
                     textStyle={styles.timerText}
                     seconds={5}
                     onTimes={e => {}}
-                    onEnd={() => {}}
+                    onPause={e => {}}
+                    onEnd={(e) => {}}
                 />
                 <Button
                     style={styles.button}

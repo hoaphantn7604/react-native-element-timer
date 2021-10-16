@@ -5,6 +5,7 @@ export interface Props {
   textStyle?: StyleProp<TextStyle>;
   fontFamily?: string;
   seconds: number;
-  onTimes?: (seconds: number) => void
-  onEnd?: () => void
+  onTimes?: (seconds: number) => void;
+  onPause?: (seconds: number) => void;
+  onEnd?: (seconds: number) => void;
 }
