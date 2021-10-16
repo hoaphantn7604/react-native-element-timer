@@ -7,6 +7,7 @@ const defaulProps = {
   style: {},
   textStyle: {},
   onTimes: (seconds: number) => { },
+  onPause: (seconds: number) => { },
   onEnd: (seconds: number) => { }
 };
 
@@ -26,7 +27,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
 
   useEffect(() => {
     if(initialSeconds > 0){
-      initTime(initialSeconds);
+      init();
     }
     setKey(Math.random());
     return () => {
@@ -72,17 +73,16 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
   };
 
   const init = () => {
+    currentSeconds = 0;
+    hours = 0;
+    minute = 0;
+    seconds = 0;
     if(initialSeconds > 0){
       initTime(initialSeconds);
-    }else{
-      currentSeconds = 0;
-      hours = 0;
-      minute = 0;
-      seconds = 0;
     }
     clear();
     setKey(Math.random());
-  }
+  };
 
   const start = () => {
     init();
@@ -90,20 +90,20 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
     if (!interval) {
       timer();
     }
-  }
+  };
 
   const pause = () => {
     clear();
     if (onPause) {
       onPause(currentSeconds);
     }
-  }
+  };
 
   const resume = () => {
     if (!interval) {
       timer();
     }
-  }
+  };
 
   const stop = () => {
     if (onEnd) {
@@ -113,14 +113,14 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
     init();
     setKey(Math.random());
     clear();
-  }
+  };
 
   const clear = () => {
     if (interval) {
       clearInterval(interval);
       interval = null;
     }
-  }
+  };
 
   const font = () => {
     if (fontFamily) {
@@ -130,7 +130,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
     } else {
       return {}
     }
-  }
+  };
 
   const renderTimer = () => {
     if (hours > 0) {
@@ -145,7 +145,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
       }
     }
 
-  }
+  };
 
   return (
     <View style={style} key={key}>

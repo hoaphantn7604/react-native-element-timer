@@ -1,8 +1,8 @@
 {
   "name": "react-native-element-timer",
   "title": "React Native Timer Countdown",
-  "version": "1.2.0",
-  "description": "React Native Timer Countdown",
+  "version": "1.2.1",
+  "description": "A component that displays a timer and countdown for React Native.",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,8 @@
     "elements",
     "components",
     "timer",
-    "countdown"
+    "countdown",
+    "clock"
   ],
   "author": {
     "name": "Hoa Phan",

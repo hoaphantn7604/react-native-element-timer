@@ -7,7 +7,8 @@ const defaulProps = {
   style: {},
   textStyle: {},
   onTimes: (seconds: number) => { },
-  onEnd: () => { }
+  onPause: (seconds: number) => { },
+  onEnd: (seconds: number) => { },
 };
 
 let interval: any = null;
@@ -40,7 +41,7 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
     }
     clear();
     setKey(Math.random());
-  }
+  };
 
 
   const timer = () => {
@@ -58,7 +59,7 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
       }
       if (currentSeconds <= 0) {
         if (onEnd) {
-          onEnd();
+          onEnd(currentSeconds);
         }
         clear();
       }
@@ -72,20 +73,20 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
     if (!interval) {
       timer();
     }
-  }
+  };
 
   const pause = () => {
     if(onPause){
       onPause(currentSeconds);
     }
     clear();
-  }
+  };
 
   const resume = () => {
     if (!interval) {
       timer();
     }
-  }
+  };
 
   const stop = () => {
     if (onEnd) {
@@ -94,14 +95,14 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
 
     init();
     clear();
-  }
+  };
 
   const clear = () => {
     if (interval) {
       clearInterval(interval);
       interval = null;
     }
-  }
+  };
 
   const font = () => {
     if (fontFamily) {
@@ -111,7 +112,7 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
     } else {
       return {}
     }
-  }
+  };
 
   const renderTimer = () => {
     if (hours > 0) {
