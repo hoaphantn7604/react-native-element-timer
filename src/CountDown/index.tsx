@@ -18,7 +18,7 @@ let seconds = 0;
 let currentSeconds = 0;
 
 const CountdownComponent = React.forwardRef((props: Props, ref) => {
-  const { style, textStyle, fontFamily, onEnd, onTimes, onPause } = props;
+  const {initialSeconds, style, textStyle, fontFamily, autoStart = false, onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 
   useImperativeHandle(ref, () => {
@@ -30,11 +30,17 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
     return () => {
       stop();
     }
-  }, [props.seconds]);
+  }, [initialSeconds]);
+
+  useEffect(() => {
+    if (autoStart) {
+      start();
+    }
+  }, [autoStart]);
 
   const init = () => {
-    if (props.seconds) {
-      currentSeconds = props.seconds;
+    if (initialSeconds) {
+      currentSeconds = initialSeconds;
       hours = ~~(currentSeconds / 3600);
       minute = ~~((currentSeconds % 3600) / 60);
       seconds = ~~currentSeconds % 60;
@@ -76,7 +82,7 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
   };
 
   const pause = () => {
-    if(onPause){
+    if (onPause) {
       onPause(currentSeconds);
     }
     clear();

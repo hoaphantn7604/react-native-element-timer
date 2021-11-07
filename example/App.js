@@ -51,7 +51,7 @@ const TimerScreen = _props => {
         ref={countdownRef}
         style={styles.timer}
         textStyle={styles.timerText}
-        seconds={9}
+        initialSeconds={9}
         onTimes={e => {}}
         onPause={e => {}}
         onEnd={(e) => {}}

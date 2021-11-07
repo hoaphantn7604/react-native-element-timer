@@ -18,7 +18,7 @@ let seconds = 0;
 let currentSeconds = 0;
 
 const TimerComponent = React.forwardRef((props: Props, ref) => {
-  const { initialSeconds = 0, style, textStyle, fontFamily, onEnd, onTimes, onPause } = props;
+  const { initialSeconds = 0, style, textStyle, fontFamily, autoStart = false, onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 
   useImperativeHandle(ref, () => {
@@ -26,7 +26,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
   });
 
   useEffect(() => {
-    if(initialSeconds > 0){
+    if (initialSeconds > 0) {
       init();
     }
     setKey(Math.random());
@@ -34,6 +34,12 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
       stop();
     }
   }, [initialSeconds])
+
+  useEffect(() => {
+    if (autoStart) {
+      start();
+    }
+  }, [autoStart]);
 
   const timer = () => {
     interval = setInterval(() => {
@@ -58,12 +64,12 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
 
   const initTime = (iSeconds: number) => {
     if (iSeconds >= 3600) {
-      hours = parseInt(iSeconds / 3600);
+      hours = ~~(iSeconds / 3600);
       const times = iSeconds % 3600;
       initTime(times);
     } else {
       if (iSeconds >= 60) {
-        minute = parseInt(iSeconds / 60);
+        minute = ~~(iSeconds / 60);
         const times = iSeconds % 60;
         initTime(times);
       } else {
@@ -77,7 +83,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
     hours = 0;
     minute = 0;
     seconds = 0;
-    if(initialSeconds > 0){
+    if (initialSeconds > 0) {
       initTime(initialSeconds);
     }
     clear();

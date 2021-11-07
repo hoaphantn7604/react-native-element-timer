@@ -17,6 +17,7 @@ or
 | Props              | Type                 | isRequire | Description                             |
 | ------------------ | -------------------- | --------- | --------------------------------------- |
 | initialSeconds     | Number               | No        | Initial seconds, defalut is 0           |
+| autoStart          | Boolean              | No        | Auto start timer                        |
 | start              | ref.start()          | Yes       | Start timer                             |
 | pause              | ref.pause()          | Yes       | Pause timer                             |
 | resume             | ref.resume()         | Yes       | Resume timer                            |
@@ -32,7 +33,8 @@ or
 #### Countdown Props
 | Props              | Type                 | isRequire | default                                 |
 | ------------------ | -------------------- | --------- | --------------------------------------- |
-| seconds            | Number               | Yes       | Initial seconds                         |
+| initialSeconds     | Number               | Yes       | Initial seconds                         |
+| autoStart          | Boolean              | No        | Auto start timer                        |
 | start              | ref.start()          | Yes       | Start timer                             |
 | pause              | ref.pause()          | Yes       | Pause timer                             |
 | resume             | ref.resume()         | Yes       | Resume timer                            |
@@ -99,7 +101,7 @@ or
                     ref={countdownRef}
                     style={styles.timer}
                     textStyle={styles.timerText}
-                    seconds={5}
+                    initialSeconds={5}
                     onTimes={e => {}}
                     onPause={e => {}}
                     onEnd={(e) => {}}
