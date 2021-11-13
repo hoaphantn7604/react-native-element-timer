@@ -31,7 +31,9 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
     }
     setKey(Math.random());
     return () => {
-      stop();
+      init();
+      setKey(Math.random());
+      clear();
     }
   }, [initialSeconds])
 

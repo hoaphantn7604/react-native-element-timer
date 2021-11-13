@@ -18,7 +18,7 @@ let seconds = 0;
 let currentSeconds = 0;
 
 const CountdownComponent = React.forwardRef((props: Props, ref) => {
-  const {initialSeconds, style, textStyle, fontFamily, autoStart = false, onEnd, onTimes, onPause } = props;
+  const { initialSeconds, style, textStyle, fontFamily, autoStart = false, onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 
   useImperativeHandle(ref, () => {
@@ -28,7 +28,8 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
   useEffect(() => {
     init();
     return () => {
-      stop();
+      init();
+      clear();
     }
   }, [initialSeconds]);
 
