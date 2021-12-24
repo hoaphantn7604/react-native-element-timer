@@ -28,8 +28,8 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
   useEffect(() => {
     init();
     return () => {
+      pause();
       init();
-      clear();
     }
   }, [initialSeconds]);
 
