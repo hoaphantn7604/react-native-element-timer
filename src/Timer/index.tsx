@@ -41,7 +41,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
     if (autoStart) {
       start();
     }
-  }, [autoStart]);
+  }, [autoStart, initialSeconds]);
 
   const timer = () => {
     interval = setInterval(() => {

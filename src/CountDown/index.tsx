@@ -37,7 +37,7 @@ const CountdownComponent = React.forwardRef((props: Props, ref) => {
     if (autoStart) {
       start();
     }
-  }, [autoStart]);
+  }, [autoStart, initialSeconds]);
 
   const init = () => {
     if (initialSeconds) {
