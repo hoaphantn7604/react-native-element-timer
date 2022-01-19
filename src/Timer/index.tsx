@@ -1,5 +1,5 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 import { styles } from './styles';
 import { Props } from './type';
 
@@ -26,16 +26,20 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
   });
 
   useEffect(() => {
-    if (initialSeconds > 0) {
-      init();
-    }
-    setKey(Math.random());
     return () => {
       pause();
       init();
       setKey(Math.random());
     }
-  }, [initialSeconds])
+  }, []);
+
+  useEffect(() => {
+    if (initialSeconds > 0) {
+      init();
+    }
+    setKey(Math.random());
+
+  }, [initialSeconds]);
 
   useEffect(() => {
     if (autoStart) {
