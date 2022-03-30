@@ -1,5 +1,6 @@
 # react-native-element-timer
 A component that displays a timer and countdown for React Native.
+Implemented using [react-native-background-timer](https://github.com/ocetnik/react-native-background-timer)
 ## Getting started
 ```js
     npm install react-native-element-timer --save

@@ -2,6 +2,7 @@ import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { View, Text } from 'react-native';
 import { styles } from './styles';
 import { Props } from './type';
+import BackgroundTimer from 'react-native-background-timer';
 
 const defaulProps = {
   style: {},
@@ -48,7 +49,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
   }, [autoStart, initialSeconds]);
 
   const timer = () => {
-    interval = setInterval(() => {
+    interval = BackgroundTimer.setInterval(() => {
       currentSeconds = currentSeconds + 1;
       if (seconds < 60) {
         seconds = seconds + 1;
@@ -129,7 +130,7 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
 
   const clear = () => {
     if (interval) {
-      clearInterval(interval);
+      BackgroundTimer.clearInterval(interval);
       interval = null;
     }
   };
