@@ -6,6 +6,7 @@ export interface Props {
   fontFamily?: string;
   initialSeconds: number;
   autoStart?: boolean;
+  formatTime?: 'ss'| 'hh:mm:ss'
   onTimes?: (seconds: number) => void;
   onPause?: (seconds: number) => void;
   onEnd?: (seconds: number) => void;

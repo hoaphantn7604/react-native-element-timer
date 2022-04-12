@@ -26,6 +26,7 @@ or
 | style              | ViewStyle            | No        | Styling container view                  |
 | fontFamily         | String               | No        | Customize font style                    |
 | textStyle          | TextStyle            | No        | Styling text                            |
+| formatTime         | hh:mm:ss or ss       | No        | Format time                             |
 | onTimes            | (seconds) => void    | No        | callback when running time              |
 | onPause            | (seconds) => void    | No        | Callback when the pause event is called |
 | onEnd              | (seconds) => void    | No        | Callback when the stop event is called  |
@@ -43,6 +44,7 @@ or
 | style              | ViewStyle            | No        | Styling container view                  |
 | fontFamily         | String               | No        | Customize font style                    |
 | textStyle          | TextStyle            | No        | Styling text                            |
+| formatTime         | hh:mm:ss or ss       | No        | Format time                             |
 | onTimes            | (seconds) => void    | No        | callback when running time              |
 | onPause            | (seconds) => void    | No        | Callback when the pause event is called |
 | onEnd              | (seconds) => void    | No        | Callback when the stop event is called  |

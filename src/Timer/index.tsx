@@ -19,7 +19,7 @@ let seconds = 0;
 let currentSeconds = 0;
 
 const TimerComponent = React.forwardRef((props: Props, ref) => {
-  const { initialSeconds = 0, style, textStyle, fontFamily, autoStart = false, onEnd, onTimes, onPause } = props;
+  const { initialSeconds = 0, style, textStyle, fontFamily, autoStart = false, formatTime = 'hh:mm:ss', onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 
   useImperativeHandle(ref, () => {
@@ -146,18 +146,21 @@ const TimerComponent = React.forwardRef((props: Props, ref) => {
   };
 
   const renderTimer = () => {
-    if (hours > 0) {
-      return <Text style={[styles.text, textStyle, font()]}>{`${hours}:${minute.toString().length === 1 ? '0' : ''}${minute}:${seconds.toString().length === 1 ? '0' : ''
-        }${seconds}`}</Text>
-    } else {
-      if (minute > 0) {
-        return <Text style={[styles.text, textStyle, font()]}>{`${minute}:${seconds.toString().length === 1 ? '0' : ''
+    if (formatTime === 'hh:mm:ss') {
+      if (hours > 0) {
+        return <Text style={[styles.text, textStyle, font()]}>{`${hours}:${minute.toString().length === 1 ? '0' : ''}${minute}:${seconds.toString().length === 1 ? '0' : ''
           }${seconds}`}</Text>
       } else {
-        return <Text style={[styles.text, textStyle, font()]}>{`${seconds}`}</Text>
+        if (minute > 0) {
+          return <Text style={[styles.text, textStyle, font()]}>{`${minute}:${seconds.toString().length === 1 ? '0' : ''
+            }${seconds}`}</Text>
+        } else {
+          return <Text style={[styles.text, textStyle, font()]}>{`${seconds}`}</Text>
+        }
       }
+    } else {
+      return <Text style={[styles.text, textStyle, font()]}>{`${currentSeconds}`}</Text>
     }
-
   };
 
   return (
