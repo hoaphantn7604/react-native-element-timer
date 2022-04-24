@@ -1,6 +1,6 @@
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-export interface Props {
+interface IProps {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   fontFamily?: string;
@@ -11,3 +11,5 @@ export interface Props {
   onPause?: (seconds: number) => void;
   onEnd?: (seconds: number) => void;
 }
+
+export type CountDownProps = React.FC<IProps>;

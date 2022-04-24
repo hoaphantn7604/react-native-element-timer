@@ -1,15 +1,15 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { View, Text } from 'react-native';
 import { styles } from './styles';
-import { Props } from './type';
+import { CountDownProps } from './model';
 import BackgroundTimer from 'react-native-background-timer';
 
 const defaulProps = {
   style: {},
   textStyle: {},
-  onTimes: (seconds: number) => { },
-  onPause: (seconds: number) => { },
-  onEnd: (seconds: number) => { },
+  onTimes: (_seconds: number) => { },
+  onPause: (_seconds: number) => { },
+  onEnd: (_seconds: number) => { },
 };
 
 let interval: any = null;
@@ -18,7 +18,7 @@ let minute = 0;
 let seconds = 0;
 let currentSeconds = 0;
 
-const CountdownComponent = React.forwardRef((props: Props, ref) => {
+const CountdownComponent: CountDownProps = React.forwardRef((props, ref) => {
   const { initialSeconds, style, textStyle, fontFamily, autoStart = false, formatTime = 'hh:mm:ss', onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 
