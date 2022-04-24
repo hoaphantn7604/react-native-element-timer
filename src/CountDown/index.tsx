@@ -18,7 +18,7 @@ let minute = 0;
 let seconds = 0;
 let currentSeconds = 0;
 
-const CountdownComponent: CountDownProps = React.forwardRef((props, ref) => {
+const CountdownComponent = React.forwardRef<any, CountDownProps>((props, ref) => {
   const { initialSeconds, style, textStyle, fontFamily, autoStart = false, formatTime = 'hh:mm:ss', onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 

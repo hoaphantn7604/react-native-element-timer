@@ -1,7 +1,7 @@
 {
   "name": "react-native-element-timer",
   "title": "React Native Timer Countdown",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A component that displays a timer and countdown for React Native.",
   "main": "index.ts",
   "scripts": {
@@ -31,5 +31,8 @@
     "react": "*",
     "react-native": "*",
     "react-native-background-timer": "*"
+  },
+  "devDependencies": {
+    "@types/react-native-background-timer": "*"
   }
 }

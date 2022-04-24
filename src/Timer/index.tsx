@@ -18,7 +18,7 @@ let minute = 0;
 let seconds = 0;
 let currentSeconds = 0;
 
-const TimerComponent: TimerProps = React.forwardRef((props, ref) => {
+const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   const { initialSeconds = 0, style, textStyle, fontFamily, autoStart = false, formatTime = 'hh:mm:ss', onEnd, onTimes, onPause } = props;
   const [key, setKey] = useState(Math.random());
 

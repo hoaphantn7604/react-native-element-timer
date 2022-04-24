@@ -1,5 +1,12 @@
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
+export interface ITimerRef {
+  start: () => void;
+  pause: () => void;
+  resume: () => void;
+  stop: () => void;
+}
+
 interface IProps {
   initialSeconds?: number;
   style?: StyleProp<ViewStyle>;
@@ -12,4 +19,4 @@ interface IProps {
   onEnd?: (seconds: number) => void;
 }
 
-export type TimerProps = React.FC<IProps>;
+export type TimerProps = IProps;
