@@ -7,7 +7,7 @@ export interface ITimerRef {
   stop: () => void;
 }
 
-interface IProps {
+export interface TimerProps {
   initialSeconds?: number;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
@@ -18,5 +18,3 @@ interface IProps {
   onPause?: (seconds: number) => void;
   onEnd?: (seconds: number) => void;
 }
-
-export type TimerProps = IProps;

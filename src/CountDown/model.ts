@@ -7,7 +7,7 @@ export interface ICountdownRef {
   stop: () => void;
 }
 
-interface IProps {
+export interface CountDownProps {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   fontFamily?: string;
@@ -18,5 +18,3 @@ interface IProps {
   onPause?: (seconds: number) => void;
   onEnd?: (seconds: number) => void;
 }
-
-export type CountDownProps = IProps;
