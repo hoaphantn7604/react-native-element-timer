@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export interface ITimerRef {
   start: () => void;
@@ -13,7 +13,7 @@ interface IProps {
   textStyle?: StyleProp<TextStyle>;
   fontFamily?: string;
   autoStart?: boolean;
-  formatTime?: 'ss'| 'hh:mm:ss'
+  formatTime?: 'ss' | 'hh:mm:ss';
   onTimes?: (seconds: number) => void;
   onPause?: (seconds: number) => void;
   onEnd?: (seconds: number) => void;
