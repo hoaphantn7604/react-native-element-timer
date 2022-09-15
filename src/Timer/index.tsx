@@ -3,6 +3,7 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from 'react';
 import { View, Text } from 'react-native';
@@ -10,19 +11,13 @@ import { styles } from './styles';
 import type { TimerProps } from './model';
 import BackgroundTimer from 'react-native-background-timer';
 
-const defaulProps = {
+const defaultProps = {
   style: {},
   textStyle: {},
   onTimes: (_seconds: number) => {},
   onPause: (_seconds: number) => {},
   onEnd: (_seconds: number) => {},
 };
-
-let interval: any = null;
-let hours = 0;
-let minute = 0;
-let seconds = 0;
-let currentSeconds = 0;
 
 const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   const {
@@ -36,6 +31,13 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
     onTimes,
     onPause,
   } = props;
+
+  const interval = useRef(0);
+  const hours = useRef(0);
+  const minute = useRef(0);
+  const seconds = useRef(0);
+  const currentSeconds = useRef(0);
+
   const [key, setKey] = useState(Math.random());
 
   useImperativeHandle(ref, () => {
@@ -43,20 +45,20 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   });
 
   const timer = useCallback(() => {
-    interval = BackgroundTimer.setInterval(() => {
-      currentSeconds = currentSeconds + 1;
-      if (seconds < 60) {
-        seconds = seconds + 1;
+    interval.current = BackgroundTimer.setInterval(() => {
+      currentSeconds.current = currentSeconds.current + 1;
+      if (seconds.current < 60) {
+        seconds.current = seconds.current + 1;
       } else {
-        seconds = 0;
-        minute = minute + 1;
+        seconds.current = 0;
+        minute.current = minute.current + 1;
       }
-      if (minute === 60) {
-        minute = 0;
-        hours = hours + 1;
+      if (minute.current === 60) {
+        minute.current = 0;
+        hours.current = hours.current + 1;
       }
       if (onTimes) {
-        onTimes(currentSeconds);
+        onTimes(currentSeconds.current);
       }
       setKey(Math.random());
     }, 1000);
@@ -64,25 +66,25 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
 
   const initTime = useCallback((iSeconds: number) => {
     if (iSeconds >= 3600) {
-      hours = ~~(iSeconds / 3600);
+      hours.current = ~~(iSeconds / 3600);
       const times = iSeconds % 3600;
       initTime(times);
     } else {
       if (iSeconds >= 60) {
-        minute = ~~(iSeconds / 60);
+        minute.current = ~~(iSeconds / 60);
         const times = iSeconds % 60;
         initTime(times);
       } else {
-        seconds = iSeconds;
+        seconds.current = iSeconds;
       }
     }
   }, []);
 
   const init = useCallback(() => {
-    currentSeconds = 0;
-    hours = 0;
-    minute = 0;
-    seconds = 0;
+    currentSeconds.current = 0;
+    hours.current = 0;
+    minute.current = 0;
+    seconds.current = 0;
     if (initialSeconds > 0) {
       initTime(initialSeconds);
     }
@@ -93,7 +95,7 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   const start = useCallback(() => {
     init();
 
-    if (!interval) {
+    if (!interval.current) {
       timer();
     }
   }, [init, timer]);
@@ -101,19 +103,19 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   const pause = useCallback(() => {
     clear();
     if (onPause) {
-      onPause(currentSeconds);
+      onPause(currentSeconds.current);
     }
   }, [onPause]);
 
   const resume = () => {
-    if (!interval) {
+    if (!interval.current) {
       timer();
     }
   };
 
   const stop = () => {
     if (onEnd) {
-      onEnd(currentSeconds);
+      onEnd(currentSeconds.current);
     }
 
     init();
@@ -122,9 +124,9 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   };
 
   const clear = () => {
-    if (interval) {
-      BackgroundTimer.clearInterval(interval);
-      interval = null;
+    if (interval.current) {
+      BackgroundTimer.clearInterval(interval.current);
+      interval.current = 0;
     }
   };
 
@@ -161,24 +163,28 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
 
   const renderTimer = () => {
     if (formatTime === 'hh:mm:ss') {
-      if (hours > 0) {
+      if (hours.current > 0) {
         return (
-          <Text style={[styles.text, textStyle, font()]}>{`${hours}:${
-            minute.toString().length === 1 ? '0' : ''
-          }${minute}:${
-            seconds.toString().length === 1 ? '0' : ''
-          }${seconds}`}</Text>
+          <Text style={[styles.text, textStyle, font()]}>{`${hours.current}:${
+            minute.current.toString().length === 1 ? '0' : ''
+          }${minute.current}:${
+            seconds.current.toString().length === 1 ? '0' : ''
+          }${seconds.current}`}</Text>
         );
       } else {
-        if (minute > 0) {
+        if (minute.current > 0) {
           return (
-            <Text style={[styles.text, textStyle, font()]}>{`${minute}:${
-              seconds.toString().length === 1 ? '0' : ''
-            }${seconds}`}</Text>
+            <Text style={[styles.text, textStyle, font()]}>{`${
+              minute.current
+            }:${seconds.current.toString().length === 1 ? '0' : ''}${
+              seconds.current
+            }`}</Text>
           );
         } else {
           return (
-            <Text style={[styles.text, textStyle, font()]}>{`${seconds}`}</Text>
+            <Text
+              style={[styles.text, textStyle, font()]}
+            >{`${seconds.current}`}</Text>
           );
         }
       }
@@ -186,7 +192,7 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
       return (
         <Text
           style={[styles.text, textStyle, font()]}
-        >{`${currentSeconds}`}</Text>
+        >{`${currentSeconds.current}`}</Text>
       );
     }
   };
@@ -198,6 +204,6 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   );
 });
 
-TimerComponent.defaultProps = defaulProps;
+TimerComponent.defaultProps = defaultProps;
 
 export default TimerComponent;

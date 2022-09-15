@@ -3,6 +3,7 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from 'react';
 import { View, Text } from 'react-native';
@@ -10,19 +11,13 @@ import { styles } from './styles';
 import type { CountDownProps } from './model';
 import BackgroundTimer from 'react-native-background-timer';
 
-const defaulProps = {
+const defaultProps = {
   style: {},
   textStyle: {},
   onTimes: (_seconds: number) => {},
   onPause: (_seconds: number) => {},
   onEnd: (_seconds: number) => {},
 };
-
-let interval: any = null;
-let hours = 0;
-let minute = 0;
-let seconds = 0;
-let currentSeconds = 0;
 
 const CountdownComponent = React.forwardRef<any, CountDownProps>(
   (props, ref) => {
@@ -37,6 +32,13 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
       onTimes,
       onPause,
     } = props;
+
+    const interval = useRef(0);
+    const hours = useRef(0);
+    const minute = useRef(0);
+    const seconds = useRef(0);
+    const currentSeconds = useRef(0);
+
     const [key, setKey] = useState(Math.random());
 
     useImperativeHandle(ref, () => {
@@ -45,10 +47,10 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
 
     const init = useCallback(() => {
       if (initialSeconds) {
-        currentSeconds = initialSeconds;
-        hours = ~~(currentSeconds / 3600);
-        minute = ~~((currentSeconds % 3600) / 60);
-        seconds = ~~currentSeconds % 60;
+        currentSeconds.current = initialSeconds;
+        hours.current = ~~(currentSeconds.current / 3600);
+        minute.current = ~~((currentSeconds.current % 3600) / 60);
+        seconds.current = ~~currentSeconds.current % 60;
       }
       clear();
       setKey(Math.random());
@@ -56,20 +58,20 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
 
     const pause = useCallback(() => {
       if (onPause) {
-        onPause(currentSeconds);
+        onPause(currentSeconds.current);
       }
       clear();
     }, [onPause]);
 
     const resume = () => {
-      if (!interval) {
+      if (!interval.current) {
         timer();
       }
     };
 
     const stop = () => {
       if (onEnd) {
-        onEnd(currentSeconds);
+        onEnd(currentSeconds.current);
       }
 
       init();
@@ -88,20 +90,20 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
     }, [init, initialSeconds]);
 
     const timer = useCallback(() => {
-      interval = BackgroundTimer.setInterval(() => {
-        if (currentSeconds > 0) {
-          currentSeconds = currentSeconds - 1;
-          hours = ~~(currentSeconds / 3600);
-          minute = ~~((currentSeconds % 3600) / 60);
-          seconds = ~~currentSeconds % 60;
+      interval.current = BackgroundTimer.setInterval(() => {
+        if (currentSeconds.current > 0) {
+          currentSeconds.current = currentSeconds.current - 1;
+          hours.current = ~~(currentSeconds.current / 3600);
+          minute.current = ~~((currentSeconds.current % 3600) / 60);
+          seconds.current = ~~currentSeconds.current % 60;
 
           if (onTimes) {
-            onTimes(currentSeconds);
+            onTimes(currentSeconds.current);
           }
         }
-        if (currentSeconds <= 0) {
+        if (currentSeconds.current <= 0) {
           if (onEnd) {
-            onEnd(currentSeconds);
+            onEnd(currentSeconds.current);
           }
           clear();
         }
@@ -112,7 +114,7 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
     const start = useCallback(() => {
       init();
 
-      if (!interval) {
+      if (!interval.current) {
         timer();
       }
     }, [init, timer]);
@@ -124,9 +126,9 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
     }, [autoStart, initialSeconds, start]);
 
     const clear = () => {
-      if (interval) {
-        BackgroundTimer.clearInterval(interval);
-        interval = null;
+      if (interval.current) {
+        BackgroundTimer.clearInterval(interval.current);
+        interval.current = 0;
       }
     };
 
@@ -142,26 +144,28 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
 
     const renderTimer = () => {
       if (formatTime === 'hh:mm:ss') {
-        if (hours > 0) {
+        if (hours.current > 0) {
           return (
-            <Text style={[styles.text, textStyle, font()]}>{`${hours}:${
-              minute.toString().length === 1 ? '0' : ''
-            }${minute}:${
-              seconds.toString().length === 1 ? '0' : ''
-            }${seconds}`}</Text>
+            <Text style={[styles.text, textStyle, font()]}>{`${hours.current}:${
+              minute.current.toString().length === 1 ? '0' : ''
+            }${minute.current}:${
+              seconds.current.toString().length === 1 ? '0' : ''
+            }${seconds.current}`}</Text>
           );
         } else {
-          if (minute > 0) {
+          if (minute.current > 0) {
             return (
-              <Text style={[styles.text, textStyle, font()]}>{`${minute}:${
-                seconds.toString().length === 1 ? '0' : ''
-              }${seconds}`}</Text>
+              <Text style={[styles.text, textStyle, font()]}>{`${
+                minute.current
+              }:${seconds.current.toString().length === 1 ? '0' : ''}${
+                seconds.current
+              }`}</Text>
             );
           } else {
             return (
               <Text
                 style={[styles.text, textStyle, font()]}
-              >{`${seconds}`}</Text>
+              >{`${seconds.current}`}</Text>
             );
           }
         }
@@ -169,7 +173,7 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
         return (
           <Text
             style={[styles.text, textStyle, font()]}
-          >{`${currentSeconds}`}</Text>
+          >{`${currentSeconds.current}`}</Text>
         );
       }
     };
@@ -182,6 +186,6 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
   }
 );
 
-CountdownComponent.defaultProps = defaulProps;
+CountdownComponent.defaultProps = defaultProps;
 
 export default CountdownComponent;
