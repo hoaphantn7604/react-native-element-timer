@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-bitwise */
 import React, {
   useCallback,
@@ -61,7 +62,7 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
         onPause(currentSeconds.current);
       }
       clear();
-    }, [onPause]);
+    }, []);
 
     const resume = () => {
       if (!interval.current) {
@@ -79,15 +80,13 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
     };
 
     useEffect(() => {
+      init();
+
       return () => {
         pause();
         init();
       };
-    }, [init, pause]);
-
-    useEffect(() => {
-      init();
-    }, [init, initialSeconds]);
+    }, []);
 
     const timer = useCallback(() => {
       interval.current = BackgroundTimer.setInterval(() => {
@@ -109,7 +108,7 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
         }
         setKey(Math.random());
       }, 1000);
-    }, [onEnd, onTimes]);
+    }, []);
 
     const start = useCallback(() => {
       init();
@@ -117,13 +116,13 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
       if (!interval.current) {
         timer();
       }
-    }, [init, timer]);
+    }, []);
 
     useEffect(() => {
       if (autoStart) {
         start();
       }
-    }, [autoStart, initialSeconds, start]);
+    }, [autoStart]);
 
     const clear = () => {
       if (interval.current) {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-bitwise */
 import React, {
   useCallback,
@@ -62,7 +63,7 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
       }
       setKey(Math.random());
     }, 1000);
-  }, [onTimes]);
+  }, []);
 
   const initTime = useCallback((iSeconds: number) => {
     if (iSeconds >= 3600) {
@@ -85,12 +86,14 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
     hours.current = 0;
     minute.current = 0;
     seconds.current = 0;
+
     if (initialSeconds > 0) {
       initTime(initialSeconds);
     }
+
     clear();
     setKey(Math.random());
-  }, [initTime, initialSeconds]);
+  }, [initialSeconds]);
 
   const start = useCallback(() => {
     init();
@@ -98,14 +101,14 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
     if (!interval.current) {
       timer();
     }
-  }, [init, timer]);
+  }, []);
 
   const pause = useCallback(() => {
     clear();
     if (onPause) {
       onPause(currentSeconds.current);
     }
-  }, [onPause]);
+  }, []);
 
   const resume = () => {
     if (!interval.current) {
@@ -136,7 +139,7 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
       init();
       setKey(Math.random());
     };
-  }, [init, pause]);
+  }, []);
 
   useEffect(() => {
     if (initialSeconds > 0) {
