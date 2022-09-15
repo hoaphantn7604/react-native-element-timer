@@ -88,6 +88,12 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
       };
     }, []);
 
+    useEffect(() => {
+      if (autoStart) {
+        start();
+      }
+    }, [autoStart]);
+
     const timer = useCallback(() => {
       interval.current = BackgroundTimer.setInterval(() => {
         if (currentSeconds.current > 0) {
@@ -117,12 +123,6 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
         timer();
       }
     }, []);
-
-    useEffect(() => {
-      if (autoStart) {
-        start();
-      }
-    }, [autoStart]);
 
     const clear = () => {
       if (interval.current) {

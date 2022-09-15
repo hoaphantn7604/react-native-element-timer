@@ -134,25 +134,18 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   };
 
   useEffect(() => {
+    init();
     return () => {
       pause();
       init();
-      setKey(Math.random());
     };
   }, []);
-
-  useEffect(() => {
-    if (initialSeconds > 0) {
-      init();
-    }
-    setKey(Math.random());
-  }, [init, initialSeconds]);
 
   useEffect(() => {
     if (autoStart) {
       start();
     }
-  }, [autoStart, initialSeconds, start]);
+  }, [autoStart]);
 
   const font = () => {
     if (fontFamily) {
