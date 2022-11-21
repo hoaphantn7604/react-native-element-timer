@@ -53,7 +53,6 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
         minute.current = ~~((currentSeconds.current % 3600) / 60);
         seconds.current = ~~currentSeconds.current % 60;
       }
-      clear();
       setKey(Math.random());
     }, [initialSeconds]);
 
@@ -79,12 +78,13 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
       clear();
     };
 
-    useEffect(() => {
+    useEffect(()=>{
       init();
+    }, [initialSeconds]);
 
+    useEffect(() => {
       return () => {
         pause();
-        init();
       };
     }, []);
 

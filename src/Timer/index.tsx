@@ -91,7 +91,6 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
       initTime(initialSeconds);
     }
 
-    clear();
     setKey(Math.random());
   }, [initialSeconds]);
 
@@ -135,9 +134,11 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
 
   useEffect(() => {
     init();
+  }, [initialSeconds]);
+  
+  useEffect(() => {
     return () => {
       pause();
-      init();
     };
   }, []);
 
