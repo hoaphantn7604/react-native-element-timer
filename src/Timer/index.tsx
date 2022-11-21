@@ -135,7 +135,7 @@ const TimerComponent = React.forwardRef<any, TimerProps>((props, ref) => {
   useEffect(() => {
     init();
   }, [initialSeconds]);
-  
+
   useEffect(() => {
     return () => {
       pause();

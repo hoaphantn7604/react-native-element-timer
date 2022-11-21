@@ -78,7 +78,7 @@ const CountdownComponent = React.forwardRef<any, CountDownProps>(
       clear();
     };
 
-    useEffect(()=>{
+    useEffect(() => {
       init();
     }, [initialSeconds]);
 
